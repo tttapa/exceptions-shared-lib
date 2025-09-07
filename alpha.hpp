@@ -3,9 +3,15 @@
 #include <stdexcept>
 #include <typeinfo>
 
+#ifdef __GNUC__
+#define ALPHA_EXPORT_TYPE __attribute__((visibility("default")))
+#else
+#define ALPHA_EXPORT_TYPE
+#endif
+
 namespace alpha {
 
-struct error : std::runtime_error {
+struct ALPHA_EXPORT_TYPE error : std::runtime_error {
     using std::runtime_error::runtime_error;
 };
 
