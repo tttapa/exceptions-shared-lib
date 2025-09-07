@@ -4,7 +4,7 @@
 namespace bravo {
 
 const std::type_info &type_error() { return typeid(alpha::error); }
-void throw_error() { throw alpha::error(__PRETTY_FUNCTION__); }
+void throw_error() { throw alpha::error("bravo error"); }
 bool catch_error(void (*f)()) try {
     f();
     return false;
