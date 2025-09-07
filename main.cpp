@@ -23,6 +23,25 @@ int main() {
     if (!charlie::catch_error(bravo::throw_error))
         std::puts("bravo -> charlie failed");
 
+    if (!alpha::catch_error_dynamic_cast(alpha::throw_error))
+        std::puts("alpha -> alpha dynamic_cast failed");
+    if (!bravo::catch_error_dynamic_cast(bravo::throw_error))
+        std::puts("bravo -> bravo dynamic_cast failed");
+    if (!charlie::catch_error_dynamic_cast(charlie::throw_error))
+        std::puts("charlie -> charlie dynamic_cast failed");
+    if (!alpha::catch_error_dynamic_cast(bravo::throw_error))
+        std::puts("bravo -> alpha dynamic_cast failed");
+    if (!bravo::catch_error_dynamic_cast(alpha::throw_error))
+        std::puts("alpha -> bravo dynamic_cast failed");
+    if (!alpha::catch_error_dynamic_cast(charlie::throw_error))
+        std::puts("charlie -> alpha dynamic_cast failed");
+    if (!charlie::catch_error_dynamic_cast(alpha::throw_error))
+        std::puts("alpha -> charlie dynamic_cast failed");
+    if (!bravo::catch_error_dynamic_cast(charlie::throw_error))
+        std::puts("charlie -> bravo dynamic_cast failed");
+    if (!charlie::catch_error_dynamic_cast(bravo::throw_error))
+        std::puts("bravo -> charlie dynamic_cast failed");
+
     if (alpha::type_error() != alpha::type_error())
         std::puts("alpha -> alpha type_info mismatch");
     if (bravo::type_error() != bravo::type_error())

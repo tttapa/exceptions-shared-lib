@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 4.1)
-project(exceptions)
+project(exceptions LANGUAGES CXX)
 
-set(CMAKE_CXX_VISIBILITY_PRESET "hidden")
-set(CMAKE_VISIBILITY_INLINES_HIDDEN "YES")
+set(CMAKE_CXX_VISIBILITY_PRESET "hidden" CACHE STRING "")
+set(CMAKE_VISIBILITY_INLINES_HIDDEN "YES" CACHE BOOL "")
 
 add_library(alpha STATIC "alpha.cpp")
 add_library(bravo SHARED "bravo.cpp")

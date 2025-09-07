@@ -13,5 +13,13 @@ bool catch_error(void (*f)()) try {
 } catch (...) {
     return false;
 }
+bool catch_error_dynamic_cast(void (*f)()) try {
+    f();
+    return false;
+} catch (std::runtime_error &e) {
+    return dynamic_cast<alpha::error *>(&e);
+} catch (...) {
+    return false;
+}
 
 } // namespace bravo

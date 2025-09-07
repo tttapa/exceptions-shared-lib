@@ -12,5 +12,6 @@ struct error : std::runtime_error {
 const std::type_info &type_error();
 void throw_error();
 bool catch_error(void (*)());
+bool catch_error_dynamic_cast(void (*)());
 
 } // namespace alpha
