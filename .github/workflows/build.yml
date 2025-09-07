@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-latest, compiler: g++, visibility: default, generator: 'Ninja Multi-Config'}
+          - {os: ubuntu-latest, compiler: g++, visibility: hidden, generator: 'Ninja Multi-Config'}
+          - {os: ubuntu-latest, compiler: clang++, visibility: default, generator: 'Ninja Multi-Config'}
+          - {os: ubuntu-latest, compiler: clang++, visibility: hidden, generator: 'Ninja Multi-Config'}
+          - {os: macos-latest, visibility: default, generator: 'Ninja Multi-Config'}
+          - {os: macos-latest, visibility: hidden, generator: 'Ninja Multi-Config'}
+          - {os: windows-latest}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -D CMAKE_CXX_VISIBILITY_PRESET=${{ matrix.visibility }}
+        env: {CXX: '${{ matrix.compiler }}', CMAKE_GENERATOR: '${{ matrix.generator}}'}
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Run
+        run: ./build/Release/main
