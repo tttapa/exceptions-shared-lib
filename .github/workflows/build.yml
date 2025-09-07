@@ -12,8 +12,10 @@ jobs:
         include:
           - {os: ubuntu-latest, compiler: g++, visibility: default, generator: 'Ninja Multi-Config'}
           - {os: ubuntu-latest, compiler: g++, visibility: hidden, generator: 'Ninja Multi-Config'}
-          - {os: ubuntu-latest, compiler: clang++, visibility: default, generator: 'Ninja Multi-Config'}
-          - {os: ubuntu-latest, compiler: clang++, visibility: hidden, generator: 'Ninja Multi-Config'}
+          - {os: ubuntu-latest, compiler: 'clang++ -stdlib=libstdc++', visibility: default, generator: 'Ninja Multi-Config'}
+          - {os: ubuntu-latest, compiler: 'clang++ -stdlib=libstdc++', visibility: hidden, generator: 'Ninja Multi-Config'}
+          - {os: ubuntu-latest, compiler: 'clang++ -stdlib=libc++', visibility: default, generator: 'Ninja Multi-Config'}
+          - {os: ubuntu-latest, compiler: 'clang++ -stdlib=libc++', visibility: hidden, generator: 'Ninja Multi-Config'}
           - {os: macos-latest, visibility: default, generator: 'Ninja Multi-Config'}
           - {os: macos-latest, visibility: hidden, generator: 'Ninja Multi-Config'}
           - {os: windows-latest}
@@ -21,6 +23,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install libc++
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libc++-dev
 
       - name: Configure
         run: cmake -S . -B build -D CMAKE_CXX_VISIBILITY_PRESET=${{ matrix.visibility }}
